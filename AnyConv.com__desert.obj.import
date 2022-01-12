@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/AnyConv.com__desert.obj-4a97b0d1f74cf6dd685c085fe866eebe.mesh"
+
+[deps]
+
+files=[ "res://.import/AnyConv.com__desert.obj-4a97b0d1f74cf6dd685c085fe866eebe.mesh" ]
+
+source_file="res://AnyConv.com__desert.obj"
+dest_files=[ "res://.import/AnyConv.com__desert.obj-4a97b0d1f74cf6dd685c085fe866eebe.mesh", "res://.import/AnyConv.com__desert.obj-4a97b0d1f74cf6dd685c085fe866eebe.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

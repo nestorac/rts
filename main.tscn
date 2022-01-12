@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Guerrero Low Poly.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://AnyConv.com__desert.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://script.gd" type="Script" id=3]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Warrior" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.9081, 10.784, 6.23471 )
+mesh = ExtResource( 1 )
+skeleton = NodePath("../Desert")
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+material/14 = null
+material/15 = null
+material/16 = null
+material/17 = null
+material/18 = null
+material/19 = null
+material/20 = null
+material/21 = null
+material/22 = null
+material/23 = null
+material/24 = null
+material/25 = null
+material/26 = null
+material/27 = null
+material/28 = null
+material/29 = null
+material/30 = null
+material/31 = null
+material/32 = null
+material/33 = null
+material/34 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.999427, 1.86158e-09, 0.0338355, 0.0186554, 0.834271, 0.551039, -0.028228, 0.551355, -0.833793, -1.33826, 20.6195, -0.61519 )
+script = ExtResource( 3 )
+
+[node name="Desert" type="MeshInstance" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 16.0493, -0.180511, 14.1843 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("")
+material/0 = null

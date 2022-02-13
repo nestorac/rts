@@ -1,9 +1,6 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+onready var guerrero = get_node("Warrior")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +11,6 @@ func _input(event):
 		var camera = $Camera
 		var mouse_pos = get_viewport().get_mouse_position()
 		var from = camera.project_ray_origin(mouse_pos)
-		var to = from + camera.camera_project_ray_normal(mouse_pos) * camera.distance_from_camera
+		var to = from + camera.project_ray_normal(mouse_pos)
 		# Apply the position to whatever object you want
-		get_node("Warrior").global_transform.origin = to
+		guerrero.global_transform.origin = guerrero.global_transform.origin.linear_interpolate(to, 0.3)

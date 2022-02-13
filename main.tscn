@@ -5,6 +5,7 @@
 [ext_resource path="res://script.gd" type="Script" id=3]
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="Warrior" type="MeshInstance" parent="."]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.9081, 10.784, 6.23471 )
@@ -48,7 +49,6 @@ material/34 = null
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.999427, 1.86158e-09, 0.0338355, 0.0186554, 0.834271, 0.551039, -0.028228, 0.551355, -0.833793, -1.33826, 20.6195, -0.61519 )
-script = ExtResource( 3 )
 
 [node name="Desert" type="MeshInstance" parent="."]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 16.0493, -0.180511, 14.1843 )

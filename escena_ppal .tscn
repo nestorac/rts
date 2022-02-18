@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://KinematicBody.gd" type="Script" id=1]
+[ext_resource path="res://script.gd" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.619608, 0.298039, 0.298039, 1 )
@@ -21,6 +22,7 @@ material = SubResource( 4 )
 [sub_resource type="CapsuleShape" id=6]
 
 [node name="Escena principal" type="Spatial"]
+script = ExtResource( 2 )
 
 [node name="Piso" type="StaticBody" parent="."]
 
@@ -31,16 +33,16 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Piso"]
 shape = SubResource( 3 )
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
+[node name="Warrior" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.43993, 0 )
 script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="KinematicBody"]
+[node name="MeshInstance" type="MeshInstance" parent="Warrior"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 5 )
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Warrior"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 6 )
 

@@ -1,19 +1,25 @@
-extends Node
+extends Spatial
 
-onready var guerrero = get_node("Warrior")
+var ray_origin = Vector3()
+var ray_target = Vector3()
+
+onready var camera = $"Warrior/Camera"
+onready var warrior = $"Warrior"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
+	
+func _physics_process(delta):
+	var mouse_position = get_viewport().get_mouse_position()
+#	print(mouse_position)
+	ray_origin = camera.project_ray_origin(mouse_position)
+	ray_target = ray_origin + camera.project_ray_normal(mouse_position) * 1000
 
-func _input(event):
-	if (event is InputEventMouseButton and event.pressed and event.button_index == 1):
-		var camera = $Camera
-		var ray_lenght = guerrero.distance_to(camera)
-
-		var mouse_pos = get_viewport().get_mouse_position()
-		var from = camera.project_ray_origin(mouse_pos)
-		var to = from + camera.project_ray_normal(mouse_pos) * ray_lenght
-		# Apply the position to whatever object you want
-		#guerrero.global_transform.origin = guerrero.global_transform.origin.linear_interpolate(to, 0.3)
-		guerrero.global_transform.origin = to;
+	var space_state = get_world().direct_space_state
+	var intersect = space_state.intersect_ray(ray_origin, ray_target)
+#	print(intersect)
+	if not intersect.empty():
+		var pos = intersect.position
+		var look_at_horizontal = Vector3(pos.x, warrior.translation.y, pos.z)
+		warrior.look_at(look_at_horizontal, Vector3.UP)

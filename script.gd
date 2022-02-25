@@ -11,6 +11,13 @@ func _ready():
 	pass
 	
 func _physics_process(delta):
+	pass
+
+func _input(event):
+	if Input.is_action_pressed("left_click"):
+		turn_to_mouse()
+
+func turn_to_mouse():
 	var mouse_position = get_viewport().get_mouse_position()
 #	print(mouse_position)
 	ray_origin = camera.project_ray_origin(mouse_position)
@@ -23,3 +30,4 @@ func _physics_process(delta):
 		var pos = intersect.position
 		var look_at_horizontal = Vector3(pos.x, warrior.translation.y, pos.z)
 		warrior.look_at(look_at_horizontal, Vector3.UP)
+		warrior.mouse_position = pos

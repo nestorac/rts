@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://script.gd" type="Script" id=1]
 [ext_resource path="res://KinematicBody.gd" type="Script" id=2]
@@ -119,6 +119,48 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=19]
+resource_name = "Damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0.984314, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.964706, 1, 0, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ SubResource( 15 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
 [sub_resource type="BoxShape" id=18]
 
 [node name="Escena principal" type="Spatial"]
@@ -168,7 +210,7 @@ script = ExtResource( 2 )
 move_factor = 0.1
 
 [node name="MeshInstance" type="MeshInstance" parent="Warrior"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.26058, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0173273, 1.26058, 0 )
 mesh = SubResource( 10 )
 material/0 = null
 
@@ -235,6 +277,10 @@ shape = SubResource( 11 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 anims/Hit = SubResource( 16 )
 anims/RESET = SubResource( 17 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Enemy"]
+anims/Damage = SubResource( 19 )
+anims/RESET = SubResource( 20 )
 
 [node name="Hurtbox" type="Area" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25664, 0 )

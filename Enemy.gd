@@ -3,6 +3,8 @@ extends KinematicBody
 var hp = 3
 var damaged = false
 
+onready var anim = get_node("AnimationPlayer2")
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -19,6 +21,7 @@ func _physics_process(delta):
 		queue_free()
 	if damaged == true:
 		apply_damage()
+		anim.play("Damage")
 
 
 func _on_Hurtbox_area_entered(area):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://script.gd" type="Script" id=1]
 [ext_resource path="res://KinematicBody.gd" type="Script" id=2]
@@ -13,6 +13,14 @@ size = Vector3( 20, 2, 20 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 10.2772, 1, 10.0943 )
+
+[sub_resource type="SphereShape" id=21]
+
+[sub_resource type="SpatialMaterial" id=22]
+albedo_color = Color( 0, 0.0156863, 1, 1 )
+
+[sub_resource type="SphereMesh" id=23]
+material = SubResource( 22 )
 
 [sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0, 1, 0.180392, 1 )
@@ -203,6 +211,18 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Piso2"]
 shape = SubResource( 3 )
+
+[node name="Arrow" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.45768, 7.58724, -0.105212 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Arrow"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+shape = SubResource( 21 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Arrow"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.336316, 0 )
+mesh = SubResource( 23 )
+material/0 = null
 
 [node name="Warrior" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.37974, 4.65742, 0 )

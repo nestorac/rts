@@ -22,6 +22,8 @@ func _physics_process(delta):
 	if damaged == true:
 		apply_damage()
 		anim.play("Damage")
+	else:
+		print ("Lanzar flecha")
 
 
 func _on_Hurtbox_area_entered(area):

@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://camera.gd" type="Script" id=1]
+[ext_resource path="res://tilt_node.gd" type="Script" id=1]
 [ext_resource path="res://Warrior.gd" type="Script" id=2]
 [ext_resource path="res://Enemy.gd" type="Script" id=3]
 [ext_resource path="res://tileset.meshlib" type="MeshLibrary" id=4]
-[ext_resource path="res://camera_move.gd" type="Script" id=5]
+[ext_resource path="res://move_node.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.619608, 0.298039, 0.298039, 1 )
@@ -195,11 +195,17 @@ tracks/1/keys = {
 [sub_resource type="BoxShape" id=18]
 
 [node name="Escena principal" type="Spatial"]
+script = ExtResource( 5 )
+
+[node name="move_node" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="tilt_node" type="Spatial" parent="move_node"]
 script = ExtResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.999857, 0.0169288, 2.52979e-08, -0.0119678, 0.706845, 0.707267, 0.0119732, -0.707166, 0.706946, 0, 16.2346, 17.3238 )
-script = ExtResource( 5 )
+[node name="Camera" type="Camera" parent="move_node/tilt_node"]
+transform = Transform( 0.999857, 0.0169288, 2.53758e-08, -0.0119678, 0.706845, 0.707267, 0.0119732, -0.707166, 0.706946, 0, 16.2346, 17.3238 )
+script = ExtResource( 1 )
 
 [node name="Piso" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0 )

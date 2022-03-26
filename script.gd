@@ -3,7 +3,7 @@ extends Spatial
 var ray_origin = Vector3()
 var ray_target = Vector3()
 
-onready var camera = $"Camera"
+onready var camera = $"CamBase/Camera"
 onready var warrior = $"Warrior"
 
 # Called when the node enters the scene tree for the first time.

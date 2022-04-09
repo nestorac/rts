@@ -8,11 +8,19 @@ export var rot_speed = 30
 var last_mouse_position = Vector2()
 var is_rotating = false
 
+# Variables del zoom
+export (int) var max_zoom = 90
+export (int) var min_zoom = -10
+export (float) var zoom_speed = 50
+var zoom_direction = 0
+onready var camera = $Elevation/Camera
+
 func _process(delta):
 	var mouse_position = get_viewport().get_mouse_position()
 	calc_move(delta, mouse_position)
 	mouse_rotate(delta)
-	
+	zoom(delta)
+
 func _unhandled_input(event):
 	# See if we are rotating the camera.
 	if event.is_action_pressed("center_click"):
@@ -20,6 +28,19 @@ func _unhandled_input(event):
 		last_mouse_position = get_viewport().get_mouse_position()
 	if event.is_action_released("center_click"):
 		is_rotating = false
+	if event.is_action_pressed("zoom_in"):
+		zoom_direction = -1
+	if event.is_action_pressed("zoom_out"):
+		zoom_direction = 1
+
+func zoom(delta):
+	# Calcular nuevo zoom
+	var new_zoom = clamp(camera.translation.z + zoom_speed * zoom_direction * delta, min_zoom, max_zoom)
+	camera.translation.z = new_zoom
+	
+	# Delimitar los valores del zoom
+	# Dejar de mover el zoom cuando no haga nada el jugador
+	zoom_direction = 0
 
 func mouse_rotate(delta):
 	if not is_rotating:
@@ -49,12 +70,12 @@ func calc_move(delta, m_pos):
 	var viewport_size = get_viewport().size
 	var move_vector = Vector3()
 	if m_pos.x < MOVE_MARGIN:
-		move_vector.x -= 1
+		move_vector -= transform.basis.x
 	if m_pos.y < MOVE_MARGIN:
-		move_vector.z -= 1
+		move_vector -= transform.basis.z
 	if m_pos.x > ( viewport_size.x - MOVE_MARGIN ):
-		move_vector.x += 1
+		move_vector += transform.basis.x
 	if m_pos.y > ( viewport_size.y - MOVE_MARGIN ):
-		move_vector.z += 1
+		move_vector += transform.basis.z
 	
 	global_translate(move_vector * MOVE_SPEED * delta)

@@ -289,7 +289,9 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22685, 0 )
 script = ExtResource( 5 )
 
-[node name="Camera" type="Camera" parent="CamBase"]
-transform = Transform( 0.999857, 0.0169288, 2.44446e-08, -0.0119678, 0.706845, 0.707267, 0.0119732, -0.707166, 0.706946, 0, 16.2346, 17.3238 )
+[node name="Elevation" type="Spatial" parent="CamBase"]
+transform = Transform( 1, 0, 0, 0, 0.627882, 0.778309, 0, -0.778309, 0.627882, 0, 11.508, 12.7404 )
+
+[node name="Camera" type="Camera" parent="CamBase/Elevation"]
 
 [connection signal="area_entered" from="Enemy/Hurtbox" to="Enemy" method="_on_Hurtbox_area_entered"]

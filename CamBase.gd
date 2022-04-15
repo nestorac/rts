@@ -2,6 +2,7 @@ extends Spatial
 
 const MOVE_MARGIN = 20
 const MOVE_SPEED = 30
+const RAY_LENGHT = 1000
 
 # Rotación
 export var rot_speed = 30
@@ -20,6 +21,8 @@ func _process(delta):
 	calc_move(delta, mouse_position)
 	mouse_rotate(delta)
 	zoom(delta)
+	if Input.is_action_pressed("left_click"):
+		move_units(mouse_position)
 
 func _unhandled_input(event):
 	# See if we are rotating the camera.
@@ -79,3 +82,19 @@ func calc_move(delta, m_pos):
 		move_vector += transform.basis.z
 	
 	global_translate(move_vector * MOVE_SPEED * delta)
+
+func ray_from_mouse (mouse_position, collision_mask):
+	var ray_start = camera.project_ray_origin(mouse_position)
+	var ray_end = ray_start + camera.project_ray_normal(mouse_position) * RAY_LENGHT
+	var space_state = get_world().direct_space_state
+	
+	return space_state.intersect_ray(ray_start, ray_end, [], collision_mask)
+	
+	
+func move_units(m_pos):
+	var result = ray_from_mouse(m_pos, 1)
+	
+	if result:
+		get_tree().call_group("Units","move_to",result.position)
+
+

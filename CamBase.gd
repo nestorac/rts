@@ -16,6 +16,11 @@ export (float) var zoom_speed = 50
 var zoom_direction = 0
 onready var camera = $Elevation/Camera
 
+# Variables de la selecciṕón
+var selected_units = []
+var start_selection_position = Vector2()
+onready var selection_box = $SelectionBox
+
 func _process(delta):
 	var mouse_position = get_viewport().get_mouse_position()
 	calc_move(delta, mouse_position)
@@ -23,6 +28,14 @@ func _process(delta):
 	zoom(delta)
 	if Input.is_action_pressed("left_click"):
 		move_units(mouse_position)
+	if Input.is_action_just_pressed("command"):
+		selection_box.start_selection_position = mouse_position
+		start_selection_position = mouse_position
+	if Input.is_action_pressed("command"):
+		selection_box.mouse_position = mouse_position
+		selection_box.is_visible = true
+	else:
+		selection_box.is_visible = false
 
 func _unhandled_input(event):
 	# See if we are rotating the camera.

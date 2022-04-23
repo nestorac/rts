@@ -20,12 +20,6 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-#	if not is_on_floor():
-#		velocity.y -= gravity
-#	if mouse_position:
-#		translation = translation.move_toward(mouse_position, move_factor)
-	
-	print(path_index, " ", path.size())
 	
 	if path_index < path.size():
 		var move_vector = path[path_index] - global_transform.origin
@@ -48,8 +42,4 @@ func shoot_arrow():
 func move_to(target_pos):
 	path = navigation.get_simple_path(global_transform.origin, target_pos)
 	path_index = 0
-	
-	print (global_transform.origin)
-	
-	
 	

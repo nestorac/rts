@@ -54,4 +54,7 @@ material/0 = null
 [node name="Warrior" parent="Navigation" instance=ExtResource( 2 )]
 
 [node name="Warrior2" parent="Navigation" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26477, 2.40381, 8.43012 )
+
+[node name="Warrior3" parent="Navigation" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77923, 2.40381, 8.43012 )

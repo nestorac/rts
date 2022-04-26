@@ -2,6 +2,9 @@ extends KinematicBody
 
 var hp = 3
 var damaged = false
+var velocity = Vector3.ZERO
+onready var player = $"../Navigation/Warrior"
+const SPEED = 100
 
 onready var anim = get_node("AnimationPlayer2")
 
@@ -22,7 +25,11 @@ func _physics_process(delta):
 	if damaged == true:
 		apply_damage()
 		anim.play("Damage")
+	velocity = global_transform.direction_to(player.global_transform.origin()) * SPEED
+	velocity = move_and_slide(velocity)
 
+func _process(delta):
+	pass
 
 func _on_Hurtbox_area_entered(area):
 	if area.is_in_group("Weapon"):

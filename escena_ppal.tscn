@@ -52,6 +52,7 @@ mesh = SubResource( 23 )
 material/0 = null
 
 [node name="Warrior" parent="Navigation" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5803, 2.53762, 4.90679 )
 
 [node name="Warrior2" parent="Navigation" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77923, 2.40381, 8.43012 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10588, 2.51152, 7.9377 )

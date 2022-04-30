@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Warrior.gd" type="Script" id=1]
 
 [sub_resource type="SpatialMaterial" id=9]
-albedo_color = Color( 0, 1, 0.180392, 1 )
+albedo_color = Color( 0, 0.0627451, 1, 1 )
 
 [sub_resource type="CapsuleMesh" id=10]
 material = SubResource( 9 )
@@ -100,8 +100,18 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="SpatialMaterial" id=22]
+albedo_color = Color( 0.192157, 0.807843, 0.345098, 1 )
+
+[sub_resource type="CylinderMesh" id=23]
+material = SubResource( 22 )
+top_radius = 1.2
+bottom_radius = 1.2
+height = 0.1
+radial_segments = 12
+rings = 1
+
 [node name="Warrior" type="KinematicBody" groups=["Units"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5526, 2.13279, 0 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -143,3 +153,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.16064 )
 anims/Arrow = SubResource( 21 )
 anims/Hit = SubResource( 12 )
 anims/RESET = SubResource( 13 )
+
+[node name="SelectionRing" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 23 )
+material/0 = null

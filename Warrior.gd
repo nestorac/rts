@@ -14,6 +14,7 @@ onready var navigation = get_parent()
 export var move_factor = 0.3
 onready var anim = get_node("AnimationPlayer")
 onready var hand_position = $"Arm/HandPosition"
+onready var selection_ring = $"SelectionRing"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,3 +44,8 @@ func move_to(target_pos):
 	path = navigation.get_simple_path(global_transform.origin, target_pos)
 	path_index = 0
 	
+func select():
+	selection_ring.show()
+
+func deselect():
+	selection_ring.hide()

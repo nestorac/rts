@@ -28,6 +28,8 @@ func _process(delta):
 	zoom(delta)
 	if Input.is_action_pressed("left_click"):
 		move_units(mouse_position)
+
+
 	if Input.is_action_just_pressed("command"):
 		selection_box.start_selection_position = mouse_position
 		start_selection_position = mouse_position
@@ -36,6 +38,8 @@ func _process(delta):
 		selection_box.is_visible = true
 	else:
 		selection_box.is_visible = false
+	if Input.is_action_just_released("command"):
+		select_units(mouse_position)
 
 func _unhandled_input(event):
 	# See if we are rotating the camera.
@@ -110,4 +114,42 @@ func move_units(m_pos):
 	if result:
 		get_tree().call_group("Units","move_to",result.position)
 
+func get_unit_under_mouse(mouse_position):
+	var result = ray_from_mouse(mouse_position, 2)
+	if result:
+		print(result.collider)
+		return result.collider
+		
+func get_unit_under_box(top_left, bottom_right):
+	if top_left.x > bottom_right.x:
+		var temp = top_left.x
+		top_left.x = bottom_right.x
+		bottom_right.x = temp
+	if top_left.y > bottom_right.y:
+		var temp = top_left.y
+		top_left.y = bottom_right.y
+		bottom_right.y = temp
+		
+	var box = Rect2(top_left, bottom_right - top_left)
+	var box_selected_units = []
+	
+	for unit in get_tree().get_nodes_in_group("Units"):
+		if box.has_point(camera.unproject_position(unit.global_transform.origin)):
+			box_selected_units.append(unit)
+	print (box_selected_units)
+	return box_selected_units
 
+func select_units(mouse_position):
+	var new_selected_units = []
+	if mouse_position.distance_squared_to(start_selection_position) < 16:
+		var unit = get_unit_under_mouse(start_selection_position)
+		if unit != null:
+			new_selected_units.append(unit)
+	else:
+		new_selected_units = get_unit_under_box(start_selection_position, mouse_position)
+	if new_selected_units.size() != 0:
+		for unit in selected_units:
+			unit.deselect()
+		for unit in new_selected_units:
+			unit.select()
+		selected_units = new_selected_units

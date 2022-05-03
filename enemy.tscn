@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Enemy.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CapsuleMesh" id=15]
+material = SubResource( 14 )
+
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="CapsuleShape" id=6]
+
+[sub_resource type="CubeMesh" id=8]
+size = Vector3( 0.5, 0.5, 2 )
+
+[sub_resource type="BoxShape" id=11]
+
+[sub_resource type="Animation" id=16]
+resource_name = "Hit"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Arm:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -41.993, 0, 0 ), Vector3( 48.924, 0, 0 ), Vector3( -41.993, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Arm:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 0.984314, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0.964706, 1, 0, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ SubResource( 15 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="BoxShape" id=18]
+
+[node name="Enemy" type="KinematicBody"]
+transform = Transform( -0.734607, 0, 0.678493, 0, 1, 0, -0.678493, 0, -0.734607, 5.89913, 2.24536, 0 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.26058, 0 )
+mesh = SubResource( 15 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.728025, 0 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.26058, 0 )
+shape = SubResource( 6 )
+
+[node name="Arm" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15798, 2.00936, -0.0350752 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.01227 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="Hitbox" type="Area" parent="Arm"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Arm/Hitbox"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -1.64424 )
+shape = SubResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hit = SubResource( 16 )
+anims/RESET = SubResource( 17 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/Damage = SubResource( 19 )
+anims/RESET = SubResource( 20 )
+
+[node name="Hurtbox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25664, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
+transform = Transform( 1.2, 0, 0, 0, 1.5, 0, 0, 0, 1.2, 0, 0.199062, 0 )
+shape = SubResource( 18 )
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]

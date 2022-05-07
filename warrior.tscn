@@ -111,7 +111,7 @@ height = 0.1
 radial_segments = 12
 rings = 1
 
-[node name="Warrior" type="KinematicBody" groups=["Units"]]
+[node name="Warrior" type="KinematicBody" groups=["PlayerUnit", "Units"]]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )

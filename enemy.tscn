@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 
@@ -91,8 +91,11 @@ tracks/1/keys = {
 
 [sub_resource type="BoxShape" id=18]
 
-[node name="Enemy" type="KinematicBody"]
-transform = Transform( -0.734607, 0, 0.678493, 0, 1, 0, -0.678493, 0, -0.734607, 5.89913, 2.24536, 0 )
+[sub_resource type="BoxShape" id=21]
+extents = Vector3( 8.32341, 1.60597, 10.1615 )
+
+[node name="Enemy" type="KinematicBody" groups=["EnemyUnit"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )
@@ -140,4 +143,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25664, 0 )
 transform = Transform( 1.2, 0, 0, 0, 1.5, 0, 0, 0, 1.2, 0, 0.199062, 0 )
 shape = SubResource( 18 )
 
+[node name="VisionBox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10039, -10.6712 )
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="VisionBox"]
+shape = SubResource( 21 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="body_entered" from="VisionBox" to="." method="_on_VisionBox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

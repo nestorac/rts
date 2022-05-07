@@ -26,9 +26,8 @@ func _process(delta):
 	calc_move(delta, mouse_position)
 	mouse_rotate(delta)
 	zoom(delta)
-	if Input.is_action_pressed("left_click"):
-		move_units(mouse_position)
-
+	if Input.is_action_pressed("right_click"):
+		move_selected_units(mouse_position)
 
 	if Input.is_action_just_pressed("command"):
 		selection_box.start_selection_position = mouse_position
@@ -106,13 +105,6 @@ func ray_from_mouse (mouse_position, collision_mask):
 	var space_state = get_world().direct_space_state
 	
 	return space_state.intersect_ray(ray_start, ray_end, [], collision_mask)
-	
-	
-func move_units(m_pos):
-	var result = ray_from_mouse(m_pos, 1)
-	
-	if result:
-		get_tree().call_group("Units","move_to",result.position)
 
 func get_unit_under_mouse(mouse_position):
 	var result = ray_from_mouse(mouse_position, 2)
@@ -138,6 +130,13 @@ func get_unit_under_box(top_left, bottom_right):
 			box_selected_units.append(unit)
 	print (box_selected_units)
 	return box_selected_units
+
+func move_selected_units(mouse_position):
+	var result = ray_from_mouse(mouse_position, 1)
+	
+	if result:
+		for unit in selected_units:
+			unit.move_to(result.position)
 
 func select_units(mouse_position):
 	var new_selected_units = []

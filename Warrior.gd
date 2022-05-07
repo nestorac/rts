@@ -8,7 +8,7 @@ var arrow_resource = preload("res://arrow.tscn")
 # For pathfinding
 var path = []
 var path_index = 0
-const SPEED = 1000
+const SPEED = 500
 onready var navigation = get_parent()
 
 export var move_factor = 0.3
@@ -30,7 +30,7 @@ func _physics_process(delta):
 		else:
 			move_and_slide(move_vector.normalized() * SPEED * delta, Vector3.UP)
 
-	if Input.is_action_just_pressed("right_click"):
+	if Input.is_action_just_pressed("ui_accept"):
 		anim.play("Arrow")
 
 func shoot_arrow():

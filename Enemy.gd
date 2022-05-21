@@ -5,6 +5,17 @@ var damaged = false
 
 var target
 
+# State machine
+
+enum {
+	IDLE,
+	CHASE
+}
+
+var state = IDLE
+export(NodePath) onready var mesh = get_node(mesh) as MeshInstance
+export(NodePath) onready var anim_player = get_node(anim_player) as AnimationPlayer
+
 onready var anim = get_node("AnimationPlayer2")
 
 # For pathfinding
@@ -31,15 +42,27 @@ func _physics_process(delta):
 	if damaged == true:
 		apply_damage()
 		anim.play("Damage")
-		
-	if path_index < path.size():
-		var move_vector = path[path_index] - global_transform.origin
-		
-		if move_vector.length() < 1:
-			path_index += 1
-		else:
-			move_and_slide(move_vector.normalized() * SPEED * delta, Vector3.UP)
+	match state:
+		IDLE:
+			change_color(Color(0,1,0))
+			anim_player.play("Idle")
+		CHASE:
+			anim_player.play("Walk")
+			change_color(Color(1,0,0))
+			if path_index < path.size():
+				var move_vector = path[path_index] - global_transform.origin
+				
+				if move_vector.length() < 1:
+					path_index += 1
+				else:
+					look_at(target.transform.origin, Vector3.UP)
+					move_and_slide(move_vector.normalized() * SPEED * delta, Vector3.UP)
 
+
+func change_color(color:Color):
+	var material = mesh.get_surface_material(0)
+	material.albedo_color = color
+	mesh.set_surface_material(0, material)
 
 func move_to(target_pos):
 	path = navigation.get_simple_path(global_transform.origin, target_pos)
@@ -59,6 +82,7 @@ func apply_damage():
 func _on_VisionBox_body_entered(body):
 	if body.is_in_group("PlayerUnit"):
 		target = body
+		state = CHASE
 
 
 func _on_Timer_timeout():

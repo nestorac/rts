@@ -55,6 +55,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8004, 2.71043, 0 )
 
 [node name="Warrior" parent="Navigation" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5803, 2.53762, 4.90679 )
-
-[node name="Warrior2" parent="Navigation" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.10588, 2.51152, 7.9377 )

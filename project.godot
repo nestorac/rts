@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area",
+"class": "WeaponClass",
+"language": "GDScript",
+"path": "res://WeaponClass.gd"
+} ]
+_global_script_class_icons={
+"WeaponClass": ""
+}
+
 [application]
 
 config/name="RTS con IA"
@@ -53,6 +63,8 @@ command={
 
 3d_physics/layer_1="env"
 3d_physics/layer_2="player"
+3d_physics/layer_3="projectiles"
+3d_physics/layer_4="hurtbox"
 
 [physics]
 

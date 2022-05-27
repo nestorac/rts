@@ -9,7 +9,8 @@ var target
 
 enum {
 	IDLE,
-	CHASE
+	CHASE,
+	ATTACK
 }
 
 var state = IDLE
@@ -57,6 +58,9 @@ func _physics_process(delta):
 				else:
 					look_at(target.transform.origin, Vector3.UP)
 					move_and_slide(move_vector.normalized() * SPEED * delta, Vector3.UP)
+		ATTACK:
+			anim_player.play("Attack")
+			change_color(Color(1,0,1))
 
 
 func change_color(color:Color):
@@ -70,7 +74,7 @@ func move_to(target_pos):
 
 
 func _on_Hurtbox_area_entered(area):
-	if area.is_in_group("Weapon"):
+	if area.is_in_group("Weapon2"):
 		damaged = true
 
 		
@@ -88,3 +92,14 @@ func _on_VisionBox_body_entered(body):
 func _on_Timer_timeout():
 	if target:
 		move_to(target.global_transform.origin)
+
+
+func _on_AttackRange_body_entered(body):
+	if body.is_in_group("PlayerUnit"):
+		target = body
+		state = ATTACK
+
+
+func _on_AttackRange_body_exited(body):
+	if body.is_in_group("PlayerUnit"):
+		state = CHASE

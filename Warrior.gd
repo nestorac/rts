@@ -5,6 +5,9 @@ var velocity = Vector3.ZERO
 var mouse_position: Vector3
 var arrow_resource = preload("res://arrow.tscn")
 
+# Stats
+var health = 3
+
 # For pathfinding
 var path = []
 var path_index = 0
@@ -21,7 +24,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	
+	if health <= 0:
+		visible = false
+
 	if path_index < path.size():
 		var move_vector = path[path_index] - global_transform.origin
 		
@@ -49,3 +54,11 @@ func select():
 
 func deselect():
 	selection_ring.hide()
+
+func get_damage(damage):
+	health -= damage
+
+func _on_HurtBox_area_entered(area):
+	if area.is_in_group("Weapon"):
+		get_damage(area.Damage)
+		print("Damage: ", area.Damage)

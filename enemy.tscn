@@ -1,7 +1,9 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Archer/Material_001.material" type="Material" id=2]
+[ext_resource path="res://arrow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ArrowShot.gd" type="Script" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "archer_version_3_Cube001"
@@ -509,6 +511,20 @@ tracks/43/loop_wrap = true
 tracks/43/imported = false
 tracks/43/enabled = true
 tracks/43/keys = PoolRealArray( 0, 1, -2.61488, -8.30683, 3.46991, 0.772645, 0.112537, 0.0900509, 0.618261, 1, 1, 1, 0.0666667, 1, -2.60677, -8.33407, 3.46807, 0.773552, 0.112669, 0.0898856, 0.617126, 1, 1, 1, 0.133333, 1, -2.5422, -8.55103, 3.44287, 0.780765, 0.11372, 0.0885527, 0.607975, 1, 1, 1, 0.2, 1, -2.40232, -9.02105, 3.3386, 0.795305, 0.115838, 0.0857637, 0.588827, 1, 1, 1, 0.266667, 1, -2.20993, -9.66747, 3.08265, 0.812277, 0.11831, 0.08232, 0.565183, 1, 1, 1, 0.4, 1, -1.615, -11.6665, 1.98222, 0.857929, 0.124959, 0.0718264, 0.493138, 1, 1, 1, 0.466667, 1, -1.44904, -12.2241, 1.9561, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 0.6, 1, -1.19587, -13.0747, 3.2124, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 0.666667, 1, -1.13498, -13.2793, 3.54702, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1, 1, -1.13499, -13.2793, 3.54703, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.06667, 1, -1.135, -13.2793, 3.54706, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.13333, 1, -1.13503, -13.2792, 3.54711, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.2, 1, -1.13507, -13.279, 3.54721, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.26667, 1, -1.13514, -13.2788, 3.54735, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.33333, 1, -1.13522, -13.2785, 3.54754, 0.865487, 0.12606, 0.0698762, 0.479748, 1, 1, 1, 1.4, 1, -1.18528, -13.1103, 3.52481, 0.863443, 0.125762, 0.0704108, 0.483418, 1, 1, 1, 1.46667, 1, -1.51363, -12.0071, 3.36989, 0.848519, 0.123588, 0.0741599, 0.509158, 1, 1, 1, 1.53333, 1, -2.00679, -10.35, 3.19372, 0.822953, 0.119865, 0.0800389, 0.549522, 1, 1, 1, 1.6, 1, -2.32126, -9.2934, 3.20995, 0.803311, 0.117004, 0.0841658, 0.577856, 1, 1, 1, 1.66667, 1, -2.49991, -8.69314, 3.32108, 0.78732, 0.114675, 0.0873125, 0.59946, 1, 1, 1, 1.73333, 1, -2.59029, -8.38945, 3.42874, 0.776144, 0.113047, 0.0894103, 0.613863, 1, 1, 1, 1.79167, 1, -2.61488, -8.30683, 3.46991, 0.772645, 0.112537, 0.0900509, 0.618261, 1, 1, 1 )
+tracks/44/type = "method"
+tracks/44/path = NodePath("Armature/ArrowShot")
+tracks/44/interp = 1
+tracks/44/loop_wrap = true
+tracks/44/imported = false
+tracks/44/enabled = true
+tracks/44/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot_arrow"
+} ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "Die"
@@ -1679,6 +1695,9 @@ tracks/1/keys = {
 [sub_resource type="BoxShape" id=21]
 extents = Vector3( 8.32341, 1.60597, 10.1615 )
 
+[sub_resource type="BoxShape" id=26]
+extents = Vector3( 6.12234, 1.78924, 5.22469 )
+
 [node name="Enemy" type="KinematicBody" groups=["EnemyUnit"]]
 collision_layer = 2
 collision_mask = 2
@@ -1988,6 +2007,16 @@ mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = SubResource( 25 )
 
+[node name="ArrowShot" type="Position3D" parent="Archer/Armature"]
+transform = Transform( 1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 1.72169, 4.70654, 7.47625 )
+script = ExtResource( 4 )
+
+[node name="Arrow" parent="Archer/Armature/ArrowShot" instance=ExtResource( 3 )]
+
+[node name="Arrow2" parent="Archer/Armature/ArrowShot" instance=ExtResource( 3 )]
+
+[node name="Arrow3" parent="Archer/Armature/ArrowShot" instance=ExtResource( 3 )]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Archer"]
 autoplay = "Idle"
 playback_speed = 1.5
@@ -2058,6 +2087,15 @@ shape = SubResource( 21 )
 wait_time = 0.1
 autostart = true
 
+[node name="AttackRange" type="Area" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="AttackRange"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32921, -3.70647 )
+shape = SubResource( 26 )
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="body_entered" from="VisionBox" to="." method="_on_VisionBox_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_AttackRange_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_AttackRange_body_exited"]

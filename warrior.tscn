@@ -175,4 +175,43 @@ collision_mask = 4
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.26, 0 )
 shape = SubResource( 24 )
 
+[node name="UnitStatsUI" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="BackgroundRect" type="ColorRect" parent="UnitStatsUI"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 120.0
+margin_bottom = 120.0
+color = Color( 0.513726, 0.101961, 0.101961, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UnitStatsUI/BackgroundRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="HealthLabel" type="Label" parent="UnitStatsUI/BackgroundRect/VBoxContainer"]
+margin_top = 25.0
+margin_right = 100.0
+margin_bottom = 39.0
+text = "health: 1"
+align = 1
+
+[node name="AttackLabel" type="Label" parent="UnitStatsUI/BackgroundRect/VBoxContainer"]
+margin_top = 43.0
+margin_right = 100.0
+margin_bottom = 57.0
+text = "attack: 1"
+align = 1
+
+[node name="SpeedLabel" type="Label" parent="UnitStatsUI/BackgroundRect/VBoxContainer"]
+margin_top = 61.0
+margin_right = 100.0
+margin_bottom = 75.0
+text = "speed: 1"
+align = 1
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]

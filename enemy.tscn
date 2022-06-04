@@ -1699,7 +1699,7 @@ extents = Vector3( 8.32341, 1.60597, 10.1615 )
 extents = Vector3( 6.12234, 1.78924, 5.22469 )
 
 [node name="Enemy" type="KinematicBody" groups=["EnemyUnit"]]
-collision_layer = 2
+collision_layer = 16
 collision_mask = 2
 script = ExtResource( 1 )
 mesh = NodePath("Archer/Armature/Skeleton/Cube")
